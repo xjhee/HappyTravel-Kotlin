@@ -3,8 +3,8 @@ package com.project.happytravel.entities
 import javax.persistence.*
 
 @Entity
-@Table(name = "signup")
-open class SignUp {
+@Table(name = "users")
+open class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
