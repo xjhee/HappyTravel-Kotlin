@@ -1,4 +1,5 @@
 package com.project.happytravel.entities
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -19,6 +20,5 @@ open class Event {
     var label: String? = null
 
     @Column(name = "image")
-    var rawImage: ByteArray? = null
-
+    var image: ByteArray? = null
 }

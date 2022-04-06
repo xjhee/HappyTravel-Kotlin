@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface EventRepository : JpaRepository<Event, Long> {
-
+    @Query("select * from events where region = ?1", nativeQuery = true)
+    fun findEventsByRegion(@Param("region") region: String): List<Event>
 }
-

@@ -39,8 +39,7 @@ class UserController(val userRepository: UserRepository) {
 
     @GetMapping("/login/{username}")
     fun validateUser(@PathVariable("username") username: String): User? {
-        val getUserInfo = userRepository.findByUsername(username).firstOrNull()
-        return getUserInfo
+        return userRepository.findByUsername(username).firstOrNull()
     }
 }
 
