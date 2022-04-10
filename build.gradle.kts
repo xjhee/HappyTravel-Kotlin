@@ -14,6 +14,15 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs("libs")
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("software.amazon.awssdk:bom:2.15.22")
+    }
 }
 
 dependencies {
@@ -23,8 +32,13 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation(platform("software.amazon.awssdk:bom:2.17.60"))
+    implementation("software.amazon.awssdk:s3:2.17.60")
+    implementation("org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE")
+    implementation("com.amazonaws:aws-java-sdk-core:1.12.180")
+    implementation("com.amazonaws:aws-java-sdk-s3:1.12.180")
+    runtimeOnly("org.postgresql:postgresql")
 }
 
 tasks.withType<KotlinCompile> {

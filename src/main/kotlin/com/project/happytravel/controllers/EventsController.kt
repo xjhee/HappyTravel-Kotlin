@@ -16,11 +16,11 @@ class EventsController(val eventRepository: EventRepository) {
 
     @GetMapping("/{region}")
     fun getEventsByRegion(@PathVariable("region") region: String): ArrayList<HashMap<String, Any?>>? {
-        var rawData = eventRepository.findEventsByRegion(region)
-        var parsedData: ArrayList<HashMap<String, Any?>> = ArrayList()
+        val rawData = eventRepository.findEventsByRegion(region)
+        val parsedData: ArrayList<HashMap<String, Any?>> = ArrayList()
 
         for (each in rawData) {
-            var parsedDataEach = HashMap<String, Any?>()
+            val parsedDataEach = HashMap<String, Any?>()
             parsedDataEach.put("id", each.id)
             parsedDataEach.put("region", each.region)
             parsedDataEach.put("text", each.text)
