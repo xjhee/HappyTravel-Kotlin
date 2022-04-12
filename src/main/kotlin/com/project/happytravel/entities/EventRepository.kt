@@ -8,4 +8,13 @@ import org.springframework.stereotype.Repository
 interface EventRepository : JpaRepository<Event, Long> {
     @Query("select * from events where region = ?1", nativeQuery = true)
     fun findEventsByRegion(@Param("region") region: String): List<Event>
+
+    @Query(
+        "select e.id as id, region, text, label, image" +
+            " from events e join users u\n" +
+            "on e.user_id = u.id\n" +
+            "where u.username = ?1",
+        nativeQuery = true
+    )
+    fun findEventsByUserName(@Param("username") username: String): List<Event>
 }

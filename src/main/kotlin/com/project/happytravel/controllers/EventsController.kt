@@ -14,7 +14,7 @@ class EventsController(val eventRepository: EventRepository) {
     @GetMapping
     fun getEvents() = eventRepository.findAll()
 
-    @GetMapping("/{region}")
+    @GetMapping("/region={region}")
     fun getEventsByRegion(@PathVariable("region") region: String): ArrayList<HashMap<String, Any?>>? {
         val rawData = eventRepository.findEventsByRegion(region)
         val parsedData: ArrayList<HashMap<String, Any?>> = ArrayList()
@@ -29,6 +29,23 @@ class EventsController(val eventRepository: EventRepository) {
             parsedData.add(parsedDataEach)
         }
         return parsedData
+    }
+
+    @GetMapping("/username={username}")
+    fun getEventsByUserId(@PathVariable("username") username: String): ArrayList<HashMap<String, Any?>>? {
+        val rawData = eventRepository.findEventsByUserName(username)
+        val parsedUserEventData: ArrayList<HashMap<String, Any?>> = ArrayList()
+
+        for (each in rawData) {
+            val parsedUserEventDataEach = HashMap<String, Any?>()
+            parsedUserEventDataEach.put("id", each.id)
+            parsedUserEventDataEach.put("region", each.region)
+            parsedUserEventDataEach.put("text", each.text)
+            parsedUserEventDataEach.put("label", each.label)
+            parsedUserEventDataEach.put("image", each.image?.decodeToString())
+            parsedUserEventData.add(parsedUserEventDataEach)
+        }
+        return parsedUserEventData
     }
 
     @PostMapping("/post")
