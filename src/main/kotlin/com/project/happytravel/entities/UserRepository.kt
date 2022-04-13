@@ -10,4 +10,3 @@ interface UserRepository : JpaRepository<User, Long> {
     @Query("select * from users where username = ?1", nativeQuery = true)
     fun findByUsername(@Param("username") username: String): List<User>
 }
-

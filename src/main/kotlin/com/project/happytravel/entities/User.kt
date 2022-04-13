@@ -18,4 +18,7 @@ open class User {
 
     @Column(name = "password")
     var password: String? = null
+
+    @Column(name = "photo")
+    var photo: ByteArray? = null
 }

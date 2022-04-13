@@ -38,11 +38,26 @@ class UserController(val userRepository: UserRepository) {
     }
 
     @GetMapping("/login/{username}")
-    fun validateUser(@PathVariable("username") username: String): User? {
-        return userRepository.findByUsername(username).firstOrNull()
+    fun validateUser(@PathVariable("username") username: String): HashMap<String, Any?> {
+        val rawData = userRepository.findByUsername(username).firstOrNull()
+        val parsedUserData: HashMap<String, Any?> = HashMap()
+
+        if (rawData != null) {
+            parsedUserData.put("id", rawData.id)
+        }
+        if (rawData != null) {
+            parsedUserData.put("username", rawData.username)
+        }
+        if (rawData != null) {
+            parsedUserData.put("email", rawData.email)
+        }
+        if (rawData != null) {
+            parsedUserData.put("password", rawData.password)
+        }
+        if (rawData != null) {
+            parsedUserData.put("photo", rawData.photo?.decodeToString())
+        }
+
+        return parsedUserData
     }
 }
-
-
-
-
