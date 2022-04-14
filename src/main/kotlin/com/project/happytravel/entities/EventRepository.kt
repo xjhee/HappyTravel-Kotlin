@@ -10,11 +10,12 @@ interface EventRepository : JpaRepository<Event, Long> {
     fun findEventsByRegion(@Param("region") region: String): List<Event>
 
     @Query(
-        "select e.id as id, region, text, label, image" +
+        "select e.id as id, region, text, label, image, user_id" +
             " from events e join users u\n" +
             "on e.user_id = u.id\n" +
             "where u.username = ?1",
         nativeQuery = true
     )
+
     fun findEventsByUserName(@Param("username") username: String): List<Event>
 }

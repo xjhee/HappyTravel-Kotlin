@@ -1,6 +1,9 @@
 package com.project.happytravel.entities
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+
 import java.util.*
 import javax.persistence.*
+
 
 @Entity
 @Table(name = "events")
@@ -20,5 +23,10 @@ open class Event {
     var label: String? = null
 
     @Column(name = "image")
+    @JsonDeserialize()
     var image: ByteArray? = null
+
+    @Column(name = "user_id")
+    var user_id: Long? = null
 }
+
