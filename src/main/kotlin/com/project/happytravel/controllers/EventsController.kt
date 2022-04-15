@@ -50,13 +50,15 @@ class EventsController(val eventRepository: EventRepository, val userRepository:
     }
 
     @PostMapping("/post")
-    fun postEvents(@RequestBody eventRaw: HashMap<String, String?>): Event {
+    fun postEvents(@RequestBody eventRaw: HashMap<String, Any?>): Event {
         val postEvent = Event()
-        postEvent.region = eventRaw.get("region")
-        postEvent.text = eventRaw.get("text")
-        postEvent.label = eventRaw.get("label")
-        postEvent.image = eventRaw.get("image")?.toByteArray()
-        postEvent.user_id = eventRaw.get("user_id")?.toLong()
+        val username = eventRaw.get("username") as String?
+        val userId = userRepository.findIdByUsername(username)
+        postEvent.region = eventRaw.get("region") as String?
+        postEvent.text = eventRaw.get("text") as String?
+        postEvent.label = eventRaw.get("label") as String?
+        postEvent.image = (eventRaw.get("image") as String?)?.toByteArray()
+        postEvent.user_id = userId
         return eventRepository.save(postEvent)
     }
 }
