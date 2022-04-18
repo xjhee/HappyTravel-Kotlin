@@ -3,6 +3,7 @@ import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.CannedAccessControlList
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
+import com.amazonaws.services.s3.model.Region
 import com.amazonaws.util.IOUtils
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -23,7 +24,7 @@ class S3Service(
     lateinit var dir: String
 
     @Throws(IOException::class)
-    fun upload(file: MultipartFile): String {
+    fun upload(file: MultipartFile, region: String): String {
         val fileName = UUID.randomUUID().toString() + "-" + file.originalFilename
         val objMeta = ObjectMetadata()
 
@@ -33,10 +34,10 @@ class S3Service(
         val byteArrayIs = ByteArrayInputStream(bytes)
 
         s3Client.putObject(
-            PutObjectRequest(bucket, dir + fileName, byteArrayIs, objMeta)
+            PutObjectRequest(bucket, "$dir$region/$fileName", byteArrayIs, objMeta)
                 .withCannedAcl(CannedAccessControlList.PublicRead)
         )
 
-        return s3Client.getUrl(bucket, dir + fileName).toString()
+        return s3Client.getUrl(bucket, "$dir$region/$fileName").toString()
     }
 }
