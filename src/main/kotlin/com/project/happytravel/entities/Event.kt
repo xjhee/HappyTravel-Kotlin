@@ -1,9 +1,7 @@
 package com.project.happytravel.entities
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-
 import java.util.*
 import javax.persistence.*
-
 
 @Entity
 @Table(name = "events")
@@ -15,6 +13,9 @@ open class Event {
 
     @Column(name = "region")
     var region: String? = null
+
+    @Column(name = "title")
+    var title: String? = null
 
     @Column(name = "text")
     var text: String? = null
@@ -29,4 +30,3 @@ open class Event {
     @Column(name = "user_id")
     var user_id: Long? = null
 }
-
