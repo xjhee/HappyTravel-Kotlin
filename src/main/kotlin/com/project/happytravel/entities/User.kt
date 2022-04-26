@@ -1,5 +1,6 @@
 package com.project.happytravel.entities
 
+import java.math.BigInteger
 import javax.persistence.*
 
 @Entity

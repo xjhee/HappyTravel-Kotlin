@@ -18,4 +18,14 @@ class FollowersController(val followerRepository: FollowerRepository) {
     fun countFollowings(@PathVariable("username") username: String): Int {
         return followerRepository.findFollowingCountByName(username)
     }
+
+    @GetMapping("/following={username}")
+    fun getFollowings(@PathVariable("username") username: String): List<Any> {
+        return followerRepository.findFollowingsByName(username)
+    }
+
+    @GetMapping("/follower={username}")
+    fun getFollowers(@PathVariable("username") username: String): List<Any> {
+        return followerRepository.findFollowersByName(username)
+    }
 }
